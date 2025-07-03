@@ -5,17 +5,14 @@ export default async function handler(req, res) {
 
   const data = req.body;
 
-  // Pode logar pra testar se está vindo algo
-  console.log('Recebido:', JSON.stringify(data, null, 2));
-
-  const chatId = data?.chatId || '';
-  const isGroup = chatId.includes('@g.us');
+  const phone = data?.phone || '';
+  const isGroup = phone.includes('-group');
 
   if (isGroup) {
     return res.status(200).json({ status: 'ignorado (mensagem de grupo)' });
   }
 
-  // Substitua aqui pela URL do seu webhook do n8n:
+  // ✅ Substitua aqui pela URL real do seu n8n
   await fetch('https://unfairgroup.app.n8n.cloud/webhook/funil-brainclub', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
